@@ -1,32 +1,39 @@
 import java.util.*;
 
+
 public class Program {
     public static void main(String[] args) {
         List<Product> products = new ArrayList<>();
-        products.add(new WaterBottle("Evian", 1.50, 500));
-        products.add(new Snack("Snickers", 0.75, "Mars"));
-        products.add(new Drink("Coca-Cola", 1.00, "Regular"));
-        products.add(new HotDrink("Coffee", 1.50, 80));
-        products.add(new HotDrink("Tea", 1.00, 70));
-        products.add(new HotDrink("Hot Chocolate", 2.00, 75));
+        products.add(new WaterBottle("Nestle", 15, 500));
+        products.add(new Snack("Lays", 25));
+        products.add(new Drink("Coca-Cola", 35));
+        products.add(new HotDrink("Tea", 20, 85, 150));
+        products.add(new HotDrink("Coffee", 30, 90, 200));
+        products.add(new HotDrink("Hot Chocolate", 40, 95, 250));
 
-        DrinkVendingMachine vendingMachine1 = new DrinkVendingMachine();
-        vendingMachine1.initProducts(products);
+        WaterBottleVendingMachine waterVendingMachine = new WaterBottleVendingMachine();
+        waterVendingMachine.initProducts(products);
 
-        HotDrinkVendingMachine vendingMachine2 = new HotDrinkVendingMachine();
-        vendingMachine2.initProducts(products);
+        System.out.println("All products: " + waterVendingMachine.getAllProducts());
+        System.out.println("Product: " + waterVendingMachine.getProduct("Nestle"));
+        System.out.println("All products: " + waterVendingMachine.getAllProducts());
 
-        // Получение продуктов по имени
-        System.out.println(vendingMachine1.getProduct("Coca-Cola"));
-        System.out.println(vendingMachine1.getProduct("Snickers"));
+        HotDrinkVendingMachine hotDrinkVendingMachine = new HotDrinkVendingMachine();
+        hotDrinkVendingMachine.initProducts(products);
 
-        // Получение воды по имени и объему
-        System.out.println(vendingMachine1.getProduct("Evian", 500));
+        System.out.println("All products: " + hotDrinkVendingMachine.getAllProducts());
+        System.out.println("Product by name, volume and temperature: " +
+                hotDrinkVendingMachine.getProduct("Coffee", 200, 90));
 
-        // Получение горячего напитка по имени, объему и температуре
-        System.out.println(vendingMachine2.getProduct("Coffee", 0, 80));
-        System.out.println(vendingMachine2.getProduct("Tea", 0, 70));
-        System.out.println(vendingMachine2.getProduct("Hot Chocolate", 0, 75));
+        System.out.println("All products: " + hotDrinkVendingMachine.getAllProducts());
+        System.out.println("Total price of all products: " + hotDrinkVendingMachine.getAllProducts()
+                .stream()
+                .mapToLong(Product::getPrice)
+                .sum());
 
+        hotDrinkVendingMachine.getAllProducts()
+                .stream()
+                .filter(product -> product instanceof HotDrink)
+                .forEach(System.out::println);
     }
 }

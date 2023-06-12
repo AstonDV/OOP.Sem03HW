@@ -1,25 +1,21 @@
-public class WaterBottle extends Product{
-    private int volume;
+public class WaterBottle extends Product {
+    private long volume;
 
-    public WaterBottle(String name, double price, int volume) {
+    public WaterBottle(String name, long price, long volume) {
         super(name, price);
         this.volume = volume;
     }
 
-    public int getVolume() {
-        return  volume;
+    public long getVolume() {
+        return volume;
     }
 
-    public void setVolume() {
+    public void setVolume(long volume) {
         this.volume = volume;
     }
 
     @Override
     public String toString() {
-        return "WaterBottle{" +
-                "name='" + getName() + '\'' +
-                ", price=" + getPrice() +
-                ", volume=" + volume +
-                '}';
+        return super.getName() + " " + volume + "ml, " + super.getPrice() + "p";
     }
 }
