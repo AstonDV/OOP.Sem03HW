@@ -1,8 +1,8 @@
-public class Product {
+public abstract class Product implements Comparable<Product>{
     private String name;
-    private double price;
+    private long price;
 
-    public Product(String name, double price) {
+    public Product(String name, long price) {
         this.name = name;
         this.price = price;
     }
@@ -11,23 +11,25 @@ public class Product {
         return name;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setPrice(double price) {
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
         this.price = price;
     }
 
     @Override
     public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                '}';
+        return "{name='" + name + "', price=" + price + "}";
+    }
+
+    @Override
+    public int compareTo(Product other) {
+        return Long.compare(this.price, other.price);
     }
 }
